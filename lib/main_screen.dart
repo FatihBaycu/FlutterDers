@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobil_kodlama_ornekleri/student_add.dart';
-import 'package:mobil_kodlama_ornekleri/student_list.dart';
-import 'package:mobil_kodlama_ornekleri/student_list_gridview.dart';
+import 'package:mobil_kodlama_ornekleri/students_screen/student_add.dart';
+import 'package:mobil_kodlama_ornekleri/students_screen/student_list.dart';
+import 'package:mobil_kodlama_ornekleri/students_screen/student_list_gridview.dart';
+
 
 class MainScreen extends StatefulWidget {
   @override
@@ -40,22 +41,11 @@ class _MainScreenState extends State<MainScreen> {
           ),
           ListTile(
             leading: Icon(Icons.http,color: Colors.blue,),
-            title: Text("Http Student List"),
+            title: Text("Http User List"),
             trailing: Icon(Icons.navigate_next),
-            onTap: () {Navigator.pushNamed(context, "/StudentList");},
+            onTap: () {Navigator.pushNamed(context, "/UserList");},
           ),
-          ListTile(
-            leading: Icon(Icons.http,color: Colors.blue,),
-            title: Text("Http Student Add"),
-            trailing: Icon(Icons.navigate_next),
-            onTap: () {Navigator.pushNamed(context, "/StudentAdd");},
-          ),
-          ListTile(
-            leading: Icon(Icons.http,color: Colors.blue,),
-            title: Text("Http Student Grid"),
-            trailing: Icon(Icons.navigate_next),
-            onTap: () {Navigator.pushNamed(context, "/StudentGrid");},
-          ),
+
           AboutListTile(applicationIcon: Icon(Icons.navigate_next)),
         ],
       ),

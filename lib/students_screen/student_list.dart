@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobil_kodlama_ornekleri/models/student.dart';
 
-import 'models/student.dart';
+
 
 class StudentList extends StatefulWidget {
 
