@@ -38,10 +38,14 @@ class _StudentListState extends State<StudentList> {
                   itemCount: students.length,
                   itemBuilder: (context,index){
                     var ogrenci=students[index];
-                    return ListTile(
-                      leading:  CircleAvatar(child: Text(ogrenci.id.toString()),),
-                      title: Text(ogrenci.firstName),
-                      subtitle: Text(ogrenci.email),
+                    var shade = 100 * ((index+1) % 9);
+                    return Container(
+                      color: shade==0?Colors.green:Colors.green[shade],
+                      child: ListTile(
+                        leading:  CircleAvatar(child: Text(ogrenci.id.toString()),),
+                        title: Text(ogrenci.firstName),
+                        subtitle: Text(ogrenci.email),
+                      ),
                     );
                   }
               );

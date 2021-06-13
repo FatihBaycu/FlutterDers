@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobil_kodlama_ornekleri/student_add.dart';
 import 'package:mobil_kodlama_ornekleri/student_list.dart';
+import 'package:mobil_kodlama_ornekleri/student_list_gridview.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectedIndex=0;
-  var pageList=[StudentList(),StudentAdd()];
+  var pageList=[StudentList(),StudentAdd(),StudentListGridView()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +39,22 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
           ListTile(
-            leading: Icon(
-              Icons.http,
-              color: Colors.blue,
-            ),
+            leading: Icon(Icons.http,color: Colors.blue,),
             title: Text("Http Student List"),
             trailing: Icon(Icons.navigate_next),
-            onTap: () {},
+            onTap: () {Navigator.pushNamed(context, "/StudentList");},
+          ),
+          ListTile(
+            leading: Icon(Icons.http,color: Colors.blue,),
+            title: Text("Http Student Add"),
+            trailing: Icon(Icons.navigate_next),
+            onTap: () {Navigator.pushNamed(context, "/StudentAdd");},
+          ),
+          ListTile(
+            leading: Icon(Icons.http,color: Colors.blue,),
+            title: Text("Http Student Grid"),
+            trailing: Icon(Icons.navigate_next),
+            onTap: () {Navigator.pushNamed(context, "/StudentGrid");},
           ),
           AboutListTile(applicationIcon: Icon(Icons.navigate_next)),
         ],
@@ -61,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
     return BottomNavigationBar(items: [
       BottomNavigationBarItem(icon: Icon(Icons.http),label: "StudentList"),
       BottomNavigationBarItem(icon: Icon(Icons.http),label: "StudentInsert"),
-      BottomNavigationBarItem(icon: Icon(Icons.http),label: "StudentList"),
+      BottomNavigationBarItem(icon: Icon(Icons.http),label: "StudentGrid"),
     ],
      type: BottomNavigationBarType.fixed,
      currentIndex: selectedIndex,
