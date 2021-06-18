@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobil_kodlama_ornekleri/students_screen/student_add.dart';
 import 'package:mobil_kodlama_ornekleri/students_screen/student_list.dart';
 import 'package:mobil_kodlama_ornekleri/students_screen/student_list_gridview.dart';
+import 'package:mobil_kodlama_ornekleri/todo_screens/todo_screen.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -44,6 +45,16 @@ class _MainScreenState extends State<MainScreen> {
             title: Text("Http User List"),
             trailing: Icon(Icons.navigate_next),
             onTap: () {Navigator.pushNamed(context, "/UserList");},
+          ),
+
+          ListTile(
+            leading: Icon(Icons.plus_one),
+            title: Text("My Todos"),
+            subtitle: Text("Bu bir subtitledır."),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder:(context)=>TodoScreen()));
+            },
           ),
 
           AboutListTile(applicationIcon: Icon(Icons.navigate_next)),

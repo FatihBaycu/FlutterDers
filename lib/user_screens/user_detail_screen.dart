@@ -16,12 +16,20 @@ class UserDetailScreen extends StatefulWidget {
 
 class _UserDetailScreenState extends State<UserDetailScreen> {
 
- Future<User> getById(int id)async{
+  var statusCode;
+  User user;
+
+
+
+
+  Future<List<User>> getById(int id)async{
     var response= await http.get(Uri.parse("https://jsonplaceholder.typicode.com/users?id=$id"));
     if(response.statusCode==200){
-      var result=(jsonDecode(response.body))
-          .map((e) => User.fromJson(e));
-      print(result);
+      var result=(jsonDecode(response.body) as List)
+          .map((e) => User.fromJson(e))
+          .toList();
+      user=result.first;
+      print(user.name);
       return result;
     }
     else{
@@ -30,12 +38,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
 
   }
 
-   User user;
 
 @override
   void initState() {
-user=getById(widget.userId);
-
+   getById(widget.userId);
     super.initState();
   }
 
@@ -44,29 +50,124 @@ user=getById(widget.userId);
     return Scaffold(
       appBar: AppBar(title: Text("User"),),
       body:
-      FutureBuilder<User>(
+      FutureBuilder<List<User>>(
         future: getById(widget.userId),
         builder: (context,snapshot){
           if(snapshot.hasData){
-            var data=snapshot.data;
-            return ListView(
-              children: [
-                Text(data.id.toString()),
-                Text(data.name),
-                Text(data.username),
-                Text(data.email),
-                Text("Adress=>"),
-                Text(data.address.street),
-                Text(data.address.suite),
-                Text(data.address.city),
-                Text(data.address.zipcode),
-                Text("Adress=>Geo=>"),
-                Text(data.address.geo.lat),
-                Text(data.address.geo.lng),
-                Text(data.phone),
-                Text(data.website)
+            var data=snapshot.data[0];
+            return Center(
+              child: Container(
+                width: 250,
+                height: 500,
+                decoration: BoxDecoration(borderRadius:  BorderRadius.circular(1)),
+                child: Card(
+                  child: GestureDetector(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          child:Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(child: Text(data.id.toString()),),
+                            userVariableText(data.username),
+                          ],),),
 
-              ],
+                        Divider(color: Colors.black,thickness:4,indent: 15,endIndent: 15,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Name: "),
+                            userVariableText(data.name),
+                          ],
+                        ),   Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Email: "),
+                            userVariableText(data.email),
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Phone: "),
+                            userVariableText(data.phone),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Web Site: "),
+                            userVariableText(data.website)
+
+                          ],
+                        ),
+                        userVariableText("Adress"),
+                       Divider(color: Colors.black,thickness:4,indent: 15,endIndent: 15,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Street: "),
+                            userVariableText(data.address.street),
+
+                          ],
+                        ),    Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Suite: "),
+                            userVariableText(data.address.suite),
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("City: "),
+                            userVariableText(data.address.city),
+
+                          ],
+                        ),   Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Zip Code: "),
+                            userVariableText(data.address.zipcode),
+
+                          ],
+                        ),Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Zip Code: "),
+                            userVariableText(data.address.zipcode),
+
+                          ],
+                        ),
+                        userVariableText("Adress-Geo"),
+                      Divider(color: Colors.black,thickness:4,indent: 15,endIndent: 15,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Geo Lat: "),
+                            userVariableText("Lat: "+data.address.geo.lat),
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("Geo Lng: "),
+                            userVariableText(data.address.geo.lng),
+
+                          ],
+                        ),
+                        Divider(color: Colors.black,thickness:4,indent: 15,endIndent: 15,),
+
+
+                    ],
+                ),
+                  ),),
+              ),
             );
           }
           else{
@@ -76,5 +177,10 @@ user=getById(widget.userId);
 
       ),
     );
+
+
+  }
+  Widget userVariableText(String text){
+    return Text(text,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),);
   }
 }
